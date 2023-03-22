@@ -5,22 +5,25 @@ import * as cheerio from 'cheerio';
 @Injectable()
 export class CurrencyService {
   async fetchCurrencyValues(): Promise<string[]> {
-    const url = 'https://www.donneesmondiales.com/devises/';
+    const url = 'https://wise.com/fr/currency-converter/currencies';
 
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
+    const regex = /currencies_currencyCard__currencyCode__\w+/;
 
-    const table = $('.std100.hover');
-    const rows = table.find('tr');
-    const firstColumnValues: string[] = ["eur"];
-
-    rows.each((index, row) => {
-      const cells = $(row).find('td');
-      if (cells.length > 0) {
-        firstColumnValues.push($(cells[0]).text().toLowerCase());
-      }
+    // regex pour prévenir les changements de nom de classe
+    const allHeadings = $('h5');
+    const currencyCodeElements = allHeadings.filter((index, element) => {
+      const classNames = $(element).attr('class');
+      return regex.test(classNames);
     });
 
-    return firstColumnValues.sort();
+    const currencyCodes: string[] = [];
+
+    currencyCodeElements.each((index, element) => {
+      currencyCodes.push($(element).text().trim());
+    });
+
+    return currencyCodes.sort();
   }
 }
