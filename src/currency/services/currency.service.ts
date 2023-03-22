@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { CurrenciesListLink } from 'src/Common/Constants/Url.constants';
+import { CurrenciesListLink } from '../../Common/Constants/Url.constants';
 
 @Injectable()
 export class CurrencyService {
