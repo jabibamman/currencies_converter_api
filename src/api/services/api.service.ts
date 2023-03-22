@@ -22,7 +22,7 @@ export class ApiService {
         $('.form-group > div').each((_, element) => {
           const text = $(element).text().trim();
           if (text.toLowerCase().includes(to)) {
-            targetInputValue = text;
+            targetInputValue = text.substring(0, text.indexOf(' '));
             return false; 
           }
         });
