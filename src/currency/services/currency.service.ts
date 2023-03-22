@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import { CurrenciesListLink } from 'src/Common/Constants/Url.constants';
 
 @Injectable()
 export class CurrencyService {
   async fetchCurrencyValues(): Promise<string[]> {
-    const url = 'https://wise.com/fr/currency-converter/currencies';
+    const url = CurrenciesListLink;
 
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);

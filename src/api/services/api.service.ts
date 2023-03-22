@@ -1,3 +1,4 @@
+import { CurrencyConverterLink } from './../../Common/Constants/Url.constants';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
@@ -5,7 +6,8 @@ import * as cheerio from 'cheerio';
 @Injectable()
 export class ApiService {
       async convert(amount: number, from: string, to: string): Promise<any> {
-        const url = `https://wise.com/fr/currency-converter/${from}-to-${to}-rate?amount=${amount}`;
+        const url = CurrencyConverterLink.replace('{from}', from).replace('{to}', to).replace('{amount}', amount.toString());
+
         const response = await axios.get(url, {
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36',
