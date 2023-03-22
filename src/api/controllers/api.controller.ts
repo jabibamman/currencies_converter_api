@@ -15,5 +15,11 @@ export class ApiController {
     async getAllCurrencies(): Promise<string[]> {
         return await this.currencyServices.fetchCurrencyValues();
     }
+
+    // cur to cur conversion
+    @Get('convert/:amount/:from/:to')
+    async convert(@Param('amount') amount: number, @Param('from') from: string, @Param('to') to: string): Promise<string> {
+        return this.apiService.convert(amount, from, to);
+    }
   
 }
