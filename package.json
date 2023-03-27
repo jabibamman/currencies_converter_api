@@ -1,8 +1,22 @@
 {
   "name": "currencies_converter_api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "0.0.2",
+  "description": "Convert your favorite currencies :)",
+  "author": {
+    "name": "jabibamman",
+    "email": "james.abibamman@gmail.com",
+    "url": "https://github.com/jabibamman"
+  },
+  "tags": [
+    "currencies",
+    "converter",
+    "api",
+    "nestjs",
+    "nestjs-api",
+    "nestjs-currencies",
+    "nestjs-currencies-converter",
+    "nestjs-currencies-converter-api"
+  ],
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -24,6 +38,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.3.10",
+    "@nestjs/swagger": "^6.2.1",
     "axios": "^1.3.4",
     "cheerio": "^1.0.0-rc.12",
     "reflect-metadata": "^0.1.13",
