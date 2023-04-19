@@ -2,10 +2,19 @@ import { CurrencyConverterLink } from './../../Common/Constants/Url.constants';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import { CurrencyService } from 'src/currency/services/currency.service';
 
 @Injectable()
 export class ApiService {
+      constructor(private readonly currencyServices: CurrencyService) {}
+
       async convert(amount: number, from: string, to: string): Promise<any> {
+        if (!await this.isValidCurrency(from, to)) {
+          return {
+            error: 'Invalid currency',
+          };
+        }
+
         const url = CurrencyConverterLink.replace('{from}', from).replace('{to}', to).replace('{amount}', amount.toString());
 
         const response = await axios.get(url, {
@@ -22,12 +31,13 @@ export class ApiService {
         let targetInputValue: string;
     
         $('.form-group > div').each((_, element) => {
-          const text = $(element).text().trim();
-          if (text.toLowerCase().includes(to)) {
+          const text = $(element).text().trim();          
+          if (text.toLowerCase().includes(to.toLowerCase())) {
             targetInputValue = text.substring(0, text.indexOf(' '));
             return false; 
           }
         });
+
              
         return {
           from: from,
@@ -36,4 +46,9 @@ export class ApiService {
           result: targetInputValue,
         }
     }
+
+    async isValidCurrency(from: string, to: string) : Promise<boolean> {
+      const currenciesList = await this.currencyServices.fetchCurrencyValues();
+      return currenciesList.includes(from) && currenciesList.includes(to);
+   }
 }
