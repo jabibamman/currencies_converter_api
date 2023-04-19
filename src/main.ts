@@ -11,10 +11,6 @@ async function bootstrap() {
   .setVersion(packageJson.version)
   .setContact(packageJson.author.name, packageJson.author.url, packageJson.author.email)
 
-  packageJson.tags.forEach(tag => {
-    config.addTag(tag);
-  });
-
   const document = SwaggerModule.createDocument(app, config.build());
   SwaggerModule.setup('api', app, document);
   app.enableCors();
