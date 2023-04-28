@@ -7,6 +7,8 @@
 
 Convert your favorites currencies with this API :D.
 
+This project is currently deployed thanks to Render : https://currency-converter-jb6o.onrender.com/
+
 You can find the documentation [here](https://github.com/jabibamman/currencies_converter_api/blob/main/docs/)
 
 ## Installation
