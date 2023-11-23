@@ -10,20 +10,20 @@ export class CurrencyService {
 
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
-    const regex = /currencies_currencyCard__currencyCode__\w+/;
-
+    const regex = /(_currencyCard__currencyCode_)\w+/;
     // regex pour prévenir les changements de nom de classe
     const allHeadings = $('h5');
+
     const currencyCodeElements = allHeadings.filter((index, element) => {
       const classNames = $(element).attr('class');
       return regex.test(classNames);
     });
 
     const currencyCodes: string[] = [];
-
-    currencyCodeElements.each((index, element) => {
-      currencyCodes.push($(element).text().trim());
-    });
+    currencyCodeElements.each(function(this: cheerio.Element, i, elem) {
+      const text = $(this).text().trim();
+      currencyCodes.push(text);
+   })
 
     return currencyCodes.sort();
   }
